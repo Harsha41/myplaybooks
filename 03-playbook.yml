@@ -1,0 +1,25 @@
+---
+
+- name: update web servers
+  hosts: web
+  become: yes
+
+  tasks:
+  - name: ensure git is installed
+    package:
+      name: git
+      state: present
+
+  - name: ensure code is updated
+    git:
+      repo: 'https://github.com/Harsha41/practice.git'
+      dest: /var/www/html
+
+  - name: ensure apache is started
+    service:
+      name: httpd
+      state: restarted
+
+
+...
+
